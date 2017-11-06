@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COP</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <header>
+        <div class="header-notice">
+
+        </div>
+
+        <div class="header-nav">
+
+        </div>
+    </header>
+    <main>
+        <div class="main-wrap" id="wrap">
+            <ul id="pic">
+                <li><img src="image/time1.jpg" alt=""></li>
+                <li><img src="image/time2.jpg" alt=""></li>
+                <li><img src="image/time3.jpg" alt=""></li>
+                <li><img src="image/time4.jpg" alt=""></li>
+            </ul>
+            <ol id="list">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ol>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-body">
+
+        </div>
+        <div class="footer-bottom">
+
+        </div>
+    </footer>
+
+
+    <script type="text/javascript">
+        window.onload = function(){
+            var wrap = document.getElementById('wrap'),
+                pic = document.getElementById('pic'),
+                list = document.getElementById('list').getElementsByTagName('li'),
+                index = 0,
+                timer = null;
+
+            // 定义并调用自动播放函数
+            if(timer){
+                clearInterval(timer);
+                timer = null;
+            }
+
+            timer = setInterval(autoplay, 2000);
+
+            // 定义图片切换函数
+            function autoplay(){
+                index++;
+                if(index >= list.length){
+                    index = 0;
+                }
+                changeoptions(index);
+            }
+
+            // 鼠标划过容器时停止自动播放
+            wrap.onmouseover = function(){
+                clearInterval(timer);
+            };
+
+            // 鼠标离开容器时继续播放
+            wrap.onmouseout = function(){
+                timer = setInterval(autoplay,2000);
+            };
+
+            // 遍历所有数字导航实现划过切换至对应的图片
+            for(var i = 0; i < list.length; i++){
+                list[i].id = i;
+                list[i].onmouseover = function(){
+                    clearInterval(timer);
+                    changeoptions(this.id);
+                }
+            }
+
+            function changeoptions(curindex){
+                for(var j = 0;j < list.length;j++){
+                    list[j].className = '';
+                    pic.style.top = 0;
+                }
+                list[curindex].className = 'active';
+                pic.style.top = -curindex * 646 + 'px';
+                index = curindex;
+            }
+        }
+    </script>
+</body>
+</html>
